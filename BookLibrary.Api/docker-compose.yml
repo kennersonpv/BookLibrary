@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: api
+    image: api/csharpapp:1.0
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=localhost;Database=master;User Id=sa;Password=Kennerson123;TrustServerCertificate=True;"
+    depends_on:
+      - sqlserver
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Kennerson123"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
